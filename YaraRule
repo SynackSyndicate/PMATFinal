@@ -1,0 +1,24 @@
+// V. Yara Rule Writing
+
+rule wannaHusky_yara { 
+
+    meta:
+        author =    "Vien"
+        date =      "2022-10-20"
+        desc =      "Creating Yara Rules for WannaHusky Ransomware"
+        file =      "Ransomware[.]wannahusky[.]exe"
+        hash =      "3d35cebcf40705c23124fdc4656a7f400a316b8e96f1f9e0c187e82a9d17dca3"
+    
+    strings:
+        // Generating a set of strings to set the criteria for our rule
+        $string1 =  "WANNAHUSKY.png" ascii
+        $string2 =  "./build" ascii
+        $string3 =  "cosmo.WANNAHUSKY" ascii
+        $string4 =  "MZ"  ascii
+    
+    condition:
+        // Fill out conditions that must be met to identify binary
+        $string4 at 0 and
+        ($string2 or $string3 or $string1)
+
+}
